@@ -10,7 +10,8 @@ module Api
 
       # GET /offices/1
       def show
-        render json: :ok
+        office = Offices::Queries::SearchById.run!(id: params.dig(:id).to_i)
+        render json: office
       end
     end
   end

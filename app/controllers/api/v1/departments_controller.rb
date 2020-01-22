@@ -10,7 +10,8 @@ module Api
 
       # GET /departments/1
       def show
-        render json: :ok
+        department = Departments::Queries::SearchById.run!(id: params.dig(:id).to_i)
+        render json: department
       end
     end
   end
