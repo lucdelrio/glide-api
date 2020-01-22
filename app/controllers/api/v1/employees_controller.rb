@@ -5,14 +5,12 @@ module Api
     class EmployeesController < ApplicationController
       # GET /employees
       def index
-        response = Faraday.get(BIGCORP_API.to_s)
-        render json: response.body
+        render json: Employees::Queries::Search.run!(limit: params.dig(:limit).to_i, offset: params.dig(:offset).to_i)
       end
 
       # GET /employees/1
       def show
-        response = Faraday.get("#{BIGCORP_API}id=#{params.dig(:id)}")
-        render json: response.body
+        render json: Employees::Queries::SearchById.run!(id: params.dig(:id).to_i)
       end
     end
   end
