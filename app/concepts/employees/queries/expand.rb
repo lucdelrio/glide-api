@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-module Departments
+module Employees
   module Queries
-    class SearchById < ActiveInteraction::Base
-      integer :id
+    class Search < Employees::Base
+      integer :expand
+      integer :offset
 
       def execute
-        departments_list.select { |department| department['id'] == id }.first
+        employee_response.body
       end
 
       private

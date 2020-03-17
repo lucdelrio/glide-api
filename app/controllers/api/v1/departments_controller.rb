@@ -11,6 +11,8 @@ module Api
       # GET /departments/1
       def show
         department = Departments::Queries::SearchById.run!(id: params.dig(:id).to_i)
+        department = Departments::Queries::Expand.run!(expand: params.dig(:expand), filtered_department: [department]) if params.dig(:expand).present?
+        
         render json: department
       end
     end
